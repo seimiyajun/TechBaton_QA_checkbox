@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_position, only: [:new, :edit]
 
   # GET /members
   # GET /members.json
@@ -67,8 +68,12 @@ class MembersController < ApplicationController
       @member = Member.find(params[:id])
     end
 
+    def set_position
+      @positions = Position.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
-      params.require(:member).permit(:name, :introduction)
+      params.require(:member).permit( :name, :introduction, position_ids:[] )
     end
 end
